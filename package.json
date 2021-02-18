@@ -23,7 +23,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@govtechsg/open-attestation": "^4.0.0",
+    "@govtechsg/open-attestation": "^4.5.0",
     "did-resolver": "^2.1.1",
     "ethers": "^5.0.4",
     "ethr-did-resolver": "^3.0.0",
