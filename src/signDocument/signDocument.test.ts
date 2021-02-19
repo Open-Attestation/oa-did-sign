@@ -1,11 +1,11 @@
-import { signDocument } from ".";
+import { signDocument, SUPPORTED_SIGNING_ALGORITHM } from ".";
 import unsignedDocument from "../../test/fixtures/unsignedDocument.json";
 
 describe("signDocument", () => {
   it("should sign a document", async () => {
     const { proof } = await signDocument(
       unsignedDocument as any,
-      "Secp256k1VerificationKey2018",
+      SUPPORTED_SIGNING_ALGORITHM.Secp256k1VerificationKey2018,
       "did:ethr:0xE712878f6E8d5d4F9e87E10DA604F9cB564C9a89#controller",
       "0x497c85ed89f1874ba37532d1e33519aba15bd533cdcb90774cc497bfe3cde655"
     );
@@ -21,13 +21,13 @@ describe("signDocument", () => {
   it("should sign a document which was previously signed", async () => {
     const signedDocument = await signDocument(
       unsignedDocument as any,
-      "Secp256k1VerificationKey2018",
+      SUPPORTED_SIGNING_ALGORITHM.Secp256k1VerificationKey2018,
       "did:ethr:0xb6De3744E1259e1aB692f5a277f053B79429c5a2#controller",
       "0x812269266b34d2919f737daf22db95f02642f8cdc0ca673bf3f701599f4971f5"
     );
     const { proof } = await signDocument(
       signedDocument,
-      "Secp256k1VerificationKey2018",
+      SUPPORTED_SIGNING_ALGORITHM.Secp256k1VerificationKey2018,
       "did:ethr:0xE712878f6E8d5d4F9e87E10DA604F9cB564C9a89#controller",
       "0x497c85ed89f1874ba37532d1e33519aba15bd533cdcb90774cc497bfe3cde655"
     );
