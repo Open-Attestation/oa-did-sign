@@ -34,6 +34,7 @@ export const signV3Document = async <T extends v3.OpenAttestationDocument>(
   publicKey: string,
   privateKey: string
 ): Promise<v3.SignedWrappedDocument<T>> => {
+  if (utils.isSignedWrappedV3Document(document)) throw new Error("Document has been signed");
   const signingKey: SigningKey = { private: privateKey, public: publicKey };
   const merkleRoot = `0x${document.proof.merkleRoot}`;
   const signature = await sign(algorithm, merkleRoot, signingKey);
@@ -69,6 +70,7 @@ export async function signDocument(
     case utils.isWrappedV3Document(document):
       return signV3Document(document, algorithm, publicKey, privateKey);
     default:
+      // Unreachable code atm until utils.isWrappedV2Document & utils.isWrappedV3Document becomes more strict
       throw new Error("Unsupported document type: Only OpenAttestation v2 & v3 documents can be signed");
   }
 }
